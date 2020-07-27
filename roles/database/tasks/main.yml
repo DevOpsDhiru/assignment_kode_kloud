@@ -1,0 +1,27 @@
+---
+- name: Install MySql Database
+  yum:
+    name: mysql
+    state: present
+
+- name: start the database service
+  service:
+    name: mysql_db
+    state: started
+    enabled: yes
+
+- name: Create application database
+  mysql_db: 
+    name: "{{ mysql_db_name }}"
+    state: present
+  
+- name: Create database user
+  mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_user_password }}"
+    priv: '*.*: ALL'
+    state: present
+    host: '%'
+
+
+

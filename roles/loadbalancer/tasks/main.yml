@@ -1,0 +1,11 @@
+---
+- name: installing LB
+  yum:
+    name: nginx
+    state: present
+
+- name: starting nginx load balancing proxy
+  service:
+    name: nginx
+    state: started
+    enabled: yes

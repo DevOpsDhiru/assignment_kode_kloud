@@ -1,0 +1,9 @@
+---
+- name: install python
+  yum:
+    name:
+      - pyhon
+      - python-setuptools
+      - python-dev
+      - build-essential
+      - python-pip
