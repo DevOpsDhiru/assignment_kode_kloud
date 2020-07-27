@@ -1,28 +1,8 @@
 ---
 - hosts: all
   become: yes
-  tasks:
-  
-    - name: install python
-      yum:
-        name:
-          - pyhon
-          - python-setuptools
-          - python-dev
-          - build-essential
-          - python-pip
-          - nginx
-        state: latest
-      
-    - name: install flask
-      pip: 
-        name: flask
-
-    - name: starting nginx load balancing proxy
-      service:
-        name: nginx
-        state: started
-        enabled: yes
-    
-
-           
+  roles:
+    - python_and_dependencies
+    - applications
+    - database
+    - loadbalancer  

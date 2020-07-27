@@ -9,3 +9,29 @@
     name: nginx
     state: started
     enabled: yes
+
+- name: add hostfile entry for LB ... step 1 (unlocking file)
+  shell: "chattr -ai /etc/hosts"
+
+- name: add hostfile entry for LB ... step 2 (adding entry)
+  lineinfile:
+    path: /etc/hosts
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^ip_node1', line: "{{ ip_node1 }} {{ fqdn_node1 }} {{ fqdn_node1.split('.')[0] }}" }
+    - { regexp: '^ip_node2', line: "{{ ip_node2 }} {{ fqdn_node2 }} {{ fqdn_node2.split('.')[0] }}" }
+    - { regexp: '^ip_node3', line: "{{ ip_node3 }} {{ fqdn_node3 }} {{ fqdn_node3.split('.')[0] }}" }
+    
+#- name: add hostfile entry for LB ... step 2 (adding entry)
+#  lineinfile:
+#    regexp: "{{ ^ip_node1 }}"
+#    line: "{{ ip_node1 }} {{ fqdn_node1 }} {{ fqdn_node1.split('.')[0] }}"
+
+- name: add hostfile entry for LB ... step 3 (locking file)
+  shell: "chattr +ai /etc/hosts"
+
+
+- name: configure loadbalancer
+  lineinfile:
+    path: /etc/nginx
