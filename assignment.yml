@@ -2,7 +2,7 @@
 - hosts: all
   become: yes
   roles:
-    - python_and_dependencies
-    - applications
-    - database
+  #  - python_and_dependencies
+  #  - applications
+  #  - database
     - loadbalancer  

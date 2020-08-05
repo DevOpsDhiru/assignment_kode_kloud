@@ -1,18 +1,11 @@
 ---
-- name: install flask *
-  pip: 
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - flask
-    - flask_mysql
-
 - name: copy the app to opt directory
   copy:
-    src: ./app.py
+    src: ./files/app.py
     dest: /opt/app.py
     backup: yes
 
 - name: start flask app
   shell: "FLASK_APP=/opt/app.py nohup flask run --host=0.0.0.0 &"
+...
 

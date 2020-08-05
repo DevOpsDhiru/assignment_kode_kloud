@@ -1,2 +1,2 @@
-pslab-vm19 ansible_host=10.5.81.39 ansible_ssh_pass=
-pslab-vm19 ansible_host=10.5.81.39 ansible_ssh_pass=
+[node]
+pslab-vm19

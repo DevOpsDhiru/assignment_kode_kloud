@@ -1,4 +1,10 @@
 ---
+# variables used in databse roles
+# mysql_db_name
+# mysql_user
+# mysql_user_password
+#
+
 - name: Install MySql Database
   yum:
     name: mysql
@@ -10,7 +16,7 @@
     state: started
     enabled: yes
 
-- name: Create application database
+- name: Create "{{ mysql_db_name }}" application database
   mysql_db: 
     name: "{{ mysql_db_name }}"
     state: present

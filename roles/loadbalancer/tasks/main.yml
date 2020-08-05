@@ -1,37 +1,58 @@
 ---
-- name: installing LB
+# templates used : 
+#                nginx.conf.j2  ## this is for node
+#                lb.conf.j2     ## this is for LB
+#
+
+# install nginx repo
+- name: add nginx repo to the system
+  yum_repository:
+    name: nginx
+    description: nginx repo - $releasever - $basearch
+    file: nginx
+    baseurl: http://nginx.org/packages/mainline/centos/$releasever/$basearch
+    enabled: yes
+    gpgcheck: no
+#    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-NGINX-$releasever
+    failovermethod: priority
+  when: "node_name == 'node'"
+  
+- name: ensure nginx is installed
   yum:
     name: nginx
-    state: present
+    state: latest
 
-- name: starting nginx load balancing proxy
+- name: ensure nginx service is started
   service:
     name: nginx
     state: started
     enabled: yes
 
-- name: add hostfile entry for LB ... step 1 (unlocking file)
-  shell: "chattr -ai /etc/hosts"
+- name: Copy the basic nginx config files into /etc/nginx/nginx.conf
+  template:
+    src: ./templates/nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    backup: yes
+  when: ansible_group == "node"
 
-- name: add hostfile entry for LB ... step 2 (adding entry)
-  lineinfile:
-    path: /etc/hosts
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-  with_items:
-    - { regexp: '^ip_node1', line: "{{ ip_node1 }} {{ fqdn_node1 }} {{ fqdn_node1.split('.')[0] }}" }
-    - { regexp: '^ip_node2', line: "{{ ip_node2 }} {{ fqdn_node2 }} {{ fqdn_node2.split('.')[0] }}" }
-    - { regexp: '^ip_node3', line: "{{ ip_node3 }} {{ fqdn_node3 }} {{ fqdn_node3.split('.')[0] }}" }
-    
-#- name: add hostfile entry for LB ... step 2 (adding entry)
-#  lineinfile:
-#    regexp: "{{ ^ip_node1 }}"
-#    line: "{{ ip_node1 }} {{ fqdn_node1 }} {{ fqdn_node1.split('.')[0] }}"
+- name: Copy the nginx LOAD BALANCER config files into /etc/nginx/nginx.conf
+  template:
+    src: ./templates/LB.conf.j2
+    dest: /etc/nginx/nginx.conf
+    backup: yes
+  when: ansible_group == "lb"
 
-- name: add hostfile entry for LB ... step 3 (locking file)
-  shell: "chattr +ai /etc/hosts"
+- name: start the nginx service
+  systemd: 
+    name: nginx
+    state: reloaded
+    daemon_reload: yes
+#for being safe, using daemon reload which works on both '>' and '<' 2.4 ansible versions, else daemon_reexec: yes
+  when: ansible_service_mgr == 'systemd'
 
-
-- name: configure loadbalancer
-  lineinfile:
-    path: /etc/nginx
+- name: start the nginx service
+  service: 
+    name: nginx
+    state: reloaded
+  when: ansible_service_mgr != 'systemd'
+# if the ansible is running on CentOS or RHEL 6, then this is prefered.
