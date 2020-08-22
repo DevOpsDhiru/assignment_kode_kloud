@@ -7,7 +7,7 @@
       - python-dev
       - build-essential
       - python-pip
-  when: group_names[0] == "{{node}}"
+  when: group_names[0] == "node"
   
 - name: install flask
   pip:
@@ -15,4 +15,4 @@
       - cryptography 
       - flask==1.1.2
       - flask-mysql
-  when: group_names[0] == "{{node}}"
+  when: group_names[0] == "node"

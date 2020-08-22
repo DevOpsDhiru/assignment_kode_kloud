@@ -40,9 +40,14 @@ This repository contains the solution of the final assignment of kode_kloud of "
 *   We are not dealing with TLS or SSL communication. This is test playbook, works in port 80 only.
     If we want to update this to TLS or SSL, please use my Self-Signed-Certificate playbook on git which is public. 
     
-*   Inventory hostfile should be defined as "lb" and "node"; however, is not namdatory. Because, "group name" - 'lb' and 'node' are not hardcoded in the playbook. 
-    It is used as   variable i.e. {{lb}} and {{node}}
-
+*   Inventory hostfile should be defined as "lb" and "node". It is not namdatory, however, is hardcoded in the playbook. 
+    Should we require to change it, we should considering the words in the following files and locations: 
+        i)      inventory hostfile (normally hosts in the main playbook.) : [lb]  and [node]
+        ii)     main file of the role "python_and_dependencies";  relative path = roles/python_and_dependencies/tasks/main.yml; line#: 10 and 18
+        iii)    main file of the role "applications"; relative path =  roles/applications/tasks/main.yml; line#: 10, 19, 26, 35 and 40
+        iii)    main file of the role "database"; relative path =  roles/applications/tasks/main.yml; line#: 6, 13, 19, and 28
+        iv) 
+        
 Therefore we could change the group names in the inventory. But if we change, we need to define those names in the group_vars with the respective file as group names such as lb.yml and node.yml. It is recommended to copy the same files and modify the variables per your requirement.
 
 

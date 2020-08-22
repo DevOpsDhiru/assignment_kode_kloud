@@ -7,7 +7,7 @@
     owner: "{{user_for_service}}"
     group: "{{user_for_service}}"
     recurse: yes
-  when: group_names[0] == "{{node}}"
+  when: group_names[0] == "node"
 
 - name: Copy index.html to the hosting directory 
   template:
@@ -16,14 +16,14 @@
     owner: "{{user_for_service}}"
     group: "{{user_for_service}}"
     mode: '0755'
-  when: group_names[0] == "{{node}}"
+  when: group_names[0] == "node"
 
 - name: download the source code of app.py from git of {{git_repo_owner}}
   git:
     repo: "{{git_repo}}"
     dest: "{{ deepest_directory }}"
     update: yes
-  when: group_names[0] == "{{node}}"
+  when: group_names[0] == "node"
 
 - name: copy file from backup
   copy:
@@ -32,11 +32,11 @@
     dest: "{{hosting_location}}/{{app_name}}"
     mode: '0644'
     backup: no
-  when: group_names[0] == "{{node}}"
+  when: group_names[0] == "node"
 
     
 - name: start flask app
   shell: "FLASK_APP={{hosting_location}}/{{app_name}} nohup flask run --host=0.0.0.0 &"
-  when: group_names[0] == "{{node}}"
+  when: group_names[0] == "node"
 ...
 

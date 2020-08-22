@@ -3,20 +3,20 @@
   yum:
     name: mysql
     state: present
-  when: group_names[0] == "{{node}}"
+  when: group_names[0] == "node"
 
 - name: start the database service
   service:
     name: mysql_db
     state: started
     enabled: yes
-  when: group_names[0] == "{{node}}"
+  when: group_names[0] == "node"
 
 - name: Create "{{ mysql_db_name }}" application database
   mysql_db: 
     name: "{{ mysql_db_name }}"
     state: present
-  when: group_names[0] == "{{node}}"
+  when: group_names[0] == "node"
   
 - name: Create database user
   mysql_user:
@@ -25,7 +25,4 @@
     priv: '*.*: ALL'
     state: present
     host: '%'
-  when: group_names[0] == "{{node}}"
-
-
-
+  when: group_names[0] == "node"
