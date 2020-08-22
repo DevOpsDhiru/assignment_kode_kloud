@@ -1,0 +1,20 @@
+events {}
+
+http {
+    upstream test_server {
+        server {{node1}};
+        server {{node2}};
+    } 
+    server{
+        listen 80;
+        server_name _;
+    }
+
+#    server {
+#        listen 80;
+#        location / {
+#            proxy_pass 'http://test_server;
+#        }	
+#    }
+ 
+}

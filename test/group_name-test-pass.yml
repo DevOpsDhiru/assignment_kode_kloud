@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+
+    - name: copy application in the destination
+      copy:
+        src: node.txt
+        dest: /tmp/node.txt
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+      when: group_names[0] == 'node'
+
+    - name: copy LB file in the destination
+      copy:
+        src: lb.txt
+        dest: /tmp/lb.txt
+        owner: root
+        group: root
+        mode: '0644'
+      when: group_names[0] == 'lb'

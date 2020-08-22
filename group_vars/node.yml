@@ -1,1 +1,14 @@
-node_name: node
+# variables used in databse roles
+mysql_db_name: 'employee_db' 
+mysql_user: 'dhirendra'
+mysql_user_password: 'dhirendra'
+
+#variables for nginx config
+hosting_location: '/opt' 
+deepest_directory: '/opt/backup'
+user_for_service: 'nginx'
+node: node
+git_repo: 'https://github.com/mmumshad/simple-webapp.git'
+git_repo_owner: 'Mumshad'
+app_name_original: app.py
+app_name: app.py 

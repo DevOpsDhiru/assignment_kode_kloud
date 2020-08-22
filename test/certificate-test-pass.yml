@@ -1,0 +1,51 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: install pip and cryptography
+      yum:
+        name: python-pip
+        state: latest
+
+    - pip:
+        name: cryptography
+
+    - name: Create a directory for certificates
+      file:
+        path: "{{ path }}"
+        state: directory
+        mode: '0755'
+        owner: "{{certificate_owner}}"
+        group: "{{certificate_owner}}"
+        recurse: yes
+
+    - name: Generate an OpenSSL private key with a different size "{{ key_size }}" 
+      openssl_privatekey:
+        path: "{{ path }}/{{privatekey_name}}"
+        size: "{{ key_size }}"
+        mode: '0755'
+        owner: "{{certificate_owner}}"
+        group: "{{certificate_owner}}"
+
+    - name: Generate an OpenSSL Certificate Signing Request with Subject information
+      openssl_csr:
+        path: "{{ path }}/{{csr_name}}"
+        privatekey_path: "{{ path }}/{{privatekey_name}}"
+        country_name: "{{ country_name }}"
+        organization_name: "{{ organization_name }}"
+        email_address: "{{ email_address }}"
+        common_name: "{{ ansible_hostname }}"
+        mode: '0755'
+        owner: "{{certificate_owner}}"
+        group: "{{certificate_owner}}"
+
+    - name: Generate a Self Signed OpenSSL certificate
+      openssl_certificate:
+        path: "{{ path }}/{{certificate_name}}"
+        privatekey_path: "{{ path }}/{{privatekey_name}}"
+        csr_path: "{{ path }}/{{csr_name}}"
+        provider: selfsigned 
+        mode: '0755'
+        owner: "{{certificate_owner}}"
+        group: "{{certificate_owner}}"
+...

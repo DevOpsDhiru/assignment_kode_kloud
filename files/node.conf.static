@@ -1,0 +1,25 @@
+user "{{ user_for_service }}";
+worker_processes auto;
+error_log logs/error.log;
+pid logs/nginx.pid;
+
+events {
+    worker_connections 4096
+}
+
+http {
+    index index.html index.htm index.php;
+
+    include mime.types;
+
+    server{
+        listen          443
+        server_name     {{mydomain}}
+        access_log      /var/log/{{mydomain}}.access.log main;
+        root            html
+
+        location {{hosting_dir}} {
+            add_headder header_name header_value;
+        }
+    }
+}

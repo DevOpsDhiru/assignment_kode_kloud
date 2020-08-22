@@ -1,0 +1,51 @@
+---
+- name: add nginx repo to the system
+  yum_repository:
+    name: nginx
+    description: nginx repo - $releasever - $basearch
+    file: nginx
+    baseurl: http://nginx.org/packages/mainline/centos/$releasever/$basearch
+    enabled: yes
+    gpgcheck: no
+    failovermethod: priority
+  
+- name: ensure nginx is installed
+  yum:
+    name: nginx
+    state: latest
+
+- name: defining first host in the group
+  set_fact:
+    node1: "{{ groups[group_names[0]][0] }}"
+    node2: "{{ groups[group_names[0]][1] }}"
+
+- name: Copy the nginx config files for {{group_names[0]}} into /etc/nginx/nginx.conf
+  template:
+    src: ./templates/{{group_names[0]}}.conf.j2
+    dest: /etc/nginx/nginx.conf
+    backup: yes
+
+# This is the template file which usages the ssl config for {{group_names[0]}}
+# Here {{group_names[0]}} gives value for the LB or node or your defined name
+# I am testing it, therefore its commented out
+#
+#- name: Copy the nginx SSL type config file for {{group_names[0]}} into /etc/nginx/nginx.conf
+#  template:
+#    src: ./templates/{{group_names[0]}}ssl.conf.j2
+#    dest: /etc/nginx/nginx.conf
+#    backup: yes
+#  when: group_names[0] == 'lb'
+  
+- name: Start the nginx service for version 7 onward
+  systemd: 
+    name: nginx
+    state: started
+    daemon_reload: yes
+  when: ansible_service_mgr == 'systemd'
+
+- name: Sart the nginx service for version 6
+  service: 
+    name: nginx
+    state: started
+  when: ansible_service_mgr != 'systemd'
+...

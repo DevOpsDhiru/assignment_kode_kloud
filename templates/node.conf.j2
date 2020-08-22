@@ -1,0 +1,17 @@
+events {}
+
+http {
+    server {
+        listen 80;
+        server_name _;
+    }
+ 
+    server {
+        listen 80;
+        server_name {{ansible_hostname}};
+        root {{hosting_location}}/;
+
+        index index.html index.php {{app_name}};
+;
+    } 
+}
