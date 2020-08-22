@@ -1,12 +1,12 @@
-# Name: Dhirendra Thapaliya
-# Email: dev.ops.dhiru@gmail.com
-# Git: https://github.com/DevOpsDhiru/assignment_kode_kloud.git
+Name: Dhirendra Thapaliya
+Email: dev.ops.dhiru@gmail.com
+Git: https://github.com/DevOpsDhiru/assignment_kode_kloud.git
 
 
-# assignment_kode_kloud
-This repository contains the solution of the final assignment of kode_kloud of Advance Ansible   
+# assignment of KodeKloud
+This repository contains the solution of the final assignment of kode_kloud of "Advance Ansible by Mumshad Manambeth" 
 
-# Used modules:
+Used modules:
     - yum
     - pip
     - set_fact
@@ -20,14 +20,14 @@ This repository contains the solution of the final assignment of kode_kloud of A
     - mysql_db
     - mysql_user
 
-        parameters (other than default):
-            - remote_src
-            - when
-            - run_once
-            - delegate_to
-            - backup
-            - recurse
-            - update
+parameters (other than default):
+    - remote_src
+    - when
+    - run_once
+    - delegate_to
+    - backup
+    - recurse
+    - update
 
 # Condition / Environment and Assumptions
 *   We are not dealing with selinux, we just put them in permissive mode.
