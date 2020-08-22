@@ -11,18 +11,30 @@
 This repository contains the solution of the final assignment of kode_kloud of "Advance Ansible by Mumshad Manambeth" 
 
 * Used modules:
-    - yum                       - pip                       - set_fact
-    - template                  - systemd                   - service
-    - yum_repository            - git                       - copy
-    - shell                     - mysql_db                  - mysql_user
+    - yum
+    - pip
+    - set_fact
+    - template
+    - systemd
+    - service
+    - yum_repository
+    - git
+    - copy
+    - shell
+    - mysql_db                  
+    - mysql_user
 
 * Used parameters (other than default):
-    - remote_src                - when                      - run_once
-    - delegate_to               - backup                    - recurse
+    - remote_src
+    - when
+    - run_once
+    - delegate_to
+    - backup
+    - recurse
     - update
 
 # Condition / Environment and Assumptions
-*   We are not dealing with selinux, we just put them in permissive mode before running this playbook. (not included in this playbook)
+*   We are not dealing with selinux, we just put them in permissive or disabled mode before running this playbook. (not included in this playbook)
 *   We are not dealing with firewall or iptables. If there is any, we assume that this communication is allowed. 
     If we want to use IPTABLES, please use my IPTABLES playbook on git.
 *   We are not dealing with TLS or SSL communication. This is test playbook, works in port 80 only.
