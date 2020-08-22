@@ -32,8 +32,10 @@ This repository contains the solution of the final assignment of kode_kloud of "
 *   We are not dealing with selinux, we just put them in permissive or disabled mode before running this playbook. (not included in this playbook)
 *   We are not dealing with firewall or iptables. If there is any, we assume that this communication is allowed. 
     If we want to use IPTABLES, please use my IPTABLES playbook on git.
+
+*   Ansible config file i.e **ansible.cfg** is kept in the main play directory which makes **"hosts"** file in the same level as **default inventory.**
 *   We are not dealing with TLS or SSL communication. This is test playbook, works in port 80 only.
-    If we want to update this to TLS or SSL, please use my Self-Signed-Certificate playbook on git which is public. 
+    If we want to update this to TLS or SSL, please use my Self-Signed-Certificate playbook on git which is public and then change the template files accordingly.
 <br>    
 
 *   Inventory hostfile should be defined as "lb" and "node". It is not namdatory, however, is hardcoded in the playbook. 
@@ -51,12 +53,12 @@ Therefore we could change the group names in the inventory. But if we change, we
     where: one LB and two Nodes. <br>
            But the playbook is dynamic and we can add as many nodes as we want, but requires few updates in : <br>
            # "UPDATING PLAYBOOK" <br>
-                1) the lb templates i.e. (lb.conf.j2) where we have to define upstream servers. copy line#6 and paste it just below it and change it to node3, node4 etc. <br>
-                2) After using that variables in the templates, we should define that variable in the playbook. <br>
-                #           I am not defining this variables in the group_vars because the hostnames should be taken from "node" section and used in the "lb" section.. <br>
-                #           therefore want to be sure that those variables are available for all group; therefore I am using set_fact inside playbook. <br>
-                # <br>
-                #           Opem main.yml from nginx role. Relative path should be "roles/nginx/tasks/main.yml" <br>
-                #               copy and paste line#20 just below it and change it to node2, node4 etc... as per your requirement.  <br>
-                #               We should keep in mind that we are defining the variables that we have used in step #1 of this "UPDATING PLAYBOOK" section. <br>
+           **(1)** the lb templates i.e. (lb.conf.j2) where we have to define upstream servers. Copy line#6 and paste it just below it and change it to node3, node4 etc<br>
+           **(2)** After using that variables in the templates, we should define that variable in the playbook. <br>
+           #           I am not defining this variables in the group_vars because the hostnames should be taken from "node" section and used in the "lb" section.. <br>
+           #           therefore want to be sure that those variables are available for all group; therefore I am using set_fact inside playbook. <br>
+           # <br>
+           #           Opem main.yml from nginx role. Relative path should be "roles/nginx/tasks/main.yml" <br>
+           #               copy and paste line#20 just below it and change it to node2, node4 etc... as per your requirement.  <br>
+           #               We should keep in mind that we are defining the variables that we have used in step #1 of this "UPDATING PLAYBOOK" section. <br>
 
