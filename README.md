@@ -9,15 +9,15 @@
 This repository contains the solution of the final assignment of kode_kloud of "Advance Ansible by Mumshad Manambeth" <br>
 <br>
 * Used modules: <br>
-    "- yum"                                                  "- pip"                                                  "- set_fact"         <br>
-    "- template"                                             "- systemd"                                              "- service"          <br>
-    "- yum_repository"                                       "- git"                                                  "- copy"             <br>
-    "- shell"                                                "- mysql_db"                                             "- mysql_user"       <br>
+    "- yum"           &#9; &#9; &#9; "- pip"      &#9; &#9; &#9; "- set_fact"   &#9; <br>
+    "- template"      &#9; &#9; &#9; "- systemd"  &#9; &#9; &#9; "- service"    &#9; <br>
+    "- yum_repository"&#9; &#9; &#9; "- git"      &#9; &#9; &#9; "- copy"       &#9; <br>
+    "- shell"         &#9; &#9; &#9; "- mysql_db" &#9; &#9; &#9; "- mysql_user" &#9; <br>
     
-* Used parameters (other than default):
-    "- remote_src"                                           "- when"                                                 "- run_once"         <br>
-    "- delegate_to"                                          "- backup"                                               "- recurse"          <br>
-    "- update"                                              <br>
+* Used parameters (other than default): <br>
+    "- remote_src"  &#9; &#9; &#9; "- when"   &#9; &#9; &#9; "- run_once" &#9; <br>
+    "- delegate_to" &#9; &#9; &#9; "- backup" &#9; &#9; &#9; "- recurse"  &#9; <br>
+    "- update" &#9; <br>
 <br>    
 
 # Condition / Environment and Assumptions
