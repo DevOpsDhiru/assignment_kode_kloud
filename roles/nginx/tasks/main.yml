@@ -25,17 +25,6 @@
     dest: /etc/nginx/nginx.conf
     backup: yes
 
-# This is the template file which usages the ssl config for {{group_names[0]}}
-# Here {{group_names[0]}} gives value for the LB or node or your defined name
-# I am testing it, therefore its commented out
-#
-#- name: Copy the nginx SSL type config file for {{group_names[0]}} into /etc/nginx/nginx.conf
-#  template:
-#    src: ./templates/{{group_names[0]}}ssl.conf.j2
-#    dest: /etc/nginx/nginx.conf
-#    backup: yes
-#  when: group_names[0] == 'lb'
-  
 - name: Start the nginx service for version 7 onward
   systemd: 
     name: nginx
