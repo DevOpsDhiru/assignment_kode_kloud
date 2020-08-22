@@ -4,10 +4,13 @@
 
 - Author's git: https://github.com/DevOpsDhiru/
 
-# assignment of KodeKloud
+# Name: Simple application deployment (Load Balancer environment) using ansible
+
+# This is one of the assignments of KodeKloud
+
 This repository contains the solution of the final assignment of kode_kloud of "Advance Ansible by Mumshad Manambeth" 
 
-Used modules:
+* Used modules:
     - yum
     - pip
     - set_fact
@@ -21,7 +24,7 @@ Used modules:
     - mysql_db
     - mysql_user
 
-parameters (other than default):
+* Used parameters (other than default):
     - remote_src
     - when
     - run_once
