@@ -1,7 +1,8 @@
-Name: Dhirendra Thapaliya
-Email: dev.ops.dhiru@gmail.com
-Git: https://github.com/DevOpsDhiru/assignment_kode_kloud.git
+- Author's Name: Dhirendra Thapaliya
 
+- Author's e-mail: dev.ops.dhiru@gmail.com
+
+- Author's git: https://github.com/DevOpsDhiru/
 
 # assignment of KodeKloud
 This repository contains the solution of the final assignment of kode_kloud of "Advance Ansible by Mumshad Manambeth" 
