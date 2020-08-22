@@ -8,26 +8,34 @@
 
 This repository contains the solution of the final assignment of kode_kloud of "Advance Ansible by Mumshad Manambeth" <br>
 <br>
+
 * Used modules: <br>
-    "- yum"           &#9; &#9; &#9; "- pip"      &#9; &#9; &#9; "- set_fact"   &#9; <br>
-    "- template"      &#9; &#9; &#9; "- systemd"  &#9; &#9; &#9; "- service"    &#9; <br>
-    "- yum_repository"&#9; &#9; &#9; "- git"      &#9; &#9; &#9; "- copy"       &#9; <br>
-    "- shell"         &#9; &#9; &#9; "- mysql_db" &#9; &#9; &#9; "- mysql_user" &#9; <br>
+    |==================|=============================|==================================|<br>
+    |"- yum"___________|___________"- pip"___________|___________"- set_fact"___________|<br>
+    |"- template"______|___________"- systemd"_______|___________"- service"____________|<br>
+    |"- yum_repository"|___________"- git"___________|___________"- copy"_______________|<br>
+    |"- shell"_________|___________"- mysql_db"______|___________"- mysql_user"_________|<br>
+    |==================|=============================|=============================|<br>
     
 * Used parameters (other than default): <br>
-    "- remote_src"  &#9; &#9; &#9; "- when"   &#9; &#9; &#9; "- run_once" &#9; <br>
-    "- delegate_to" &#9; &#9; &#9; "- backup" &#9; &#9; &#9; "- recurse"  &#9; <br>
-    "- update" &#9; <br>
+
+    |==================|=============================|==================================|<br>
+    |"- remote_src"____|___________"- when"__________|___________"- run_once"___________|<br>
+    |"- delegate_to"___|___________"- backup"________|___________"- recurse"____________|<br>
+    |"- update"________|_____________________________|__________________________________|<br>
+    |==================|=============================|==================================|<br>
 <br>    
 
 # Condition / Environment and Assumptions
 <br>
+
 *   We are not dealing with selinux, we just put them in permissive or disabled mode before running this playbook. (not included in this playbook)
 *   We are not dealing with firewall or iptables. If there is any, we assume that this communication is allowed. 
     If we want to use IPTABLES, please use my IPTABLES playbook on git.
 *   We are not dealing with TLS or SSL communication. This is test playbook, works in port 80 only.
     If we want to update this to TLS or SSL, please use my Self-Signed-Certificate playbook on git which is public. 
 <br>    
+
 *   Inventory hostfile should be defined as "lb" and "node". It is not namdatory, however, is hardcoded in the playbook. 
     Should we require to change it, we should considering the words in the following files and locations: <br>
         **(1)**      inventory hostfile (normally hosts in the main playbook.) : [lb]  and [node] <br>
@@ -35,6 +43,7 @@ This repository contains the solution of the final assignment of kode_kloud of "
         **(3)**      main file of the role "applications"; relative path =  roles/applications/tasks/main.yml; line#: 10, 19, 26, 35 and 40 <br>
         **(4)**      main file of the role "database"; relative path =  roles/applications/tasks/main.yml; line#: 6, 13, 19, and 28 <br>
 <br>        
+
 Therefore we could change the group names in the inventory. But if we change, we need to define those names in the group_vars with the respective file as group names such as lb.yml and node.yml. It is recommended to copy the same files and modify the variables per your requirement. <br>
 <br>
 
