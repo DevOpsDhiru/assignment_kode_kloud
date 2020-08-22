@@ -42,10 +42,10 @@ This repository contains the solution of the final assignment of kode_kloud of "
     
 *   Inventory hostfile should be defined as "lb" and "node". It is not namdatory, however, is hardcoded in the playbook. 
     Should we require to change it, we should considering the words in the following files and locations: 
-        **1**      inventory hostfile (normally hosts in the main playbook.) : [lb]  and [node]
-        **2**      main file of the role "python_and_dependencies";  relative path = roles/python_and_dependencies/tasks/main.yml; line#: 10 and 18
-        **3**      main file of the role "applications"; relative path =  roles/applications/tasks/main.yml; line#: 10, 19, 26, 35 and 40
-        **4**      main file of the role "database"; relative path =  roles/applications/tasks/main.yml; line#: 6, 13, 19, and 28 
+        **(1)**      inventory hostfile (normally hosts in the main playbook.) : [lb]  and [node] <br>
+        **(2)**      main file of the role "python_and_dependencies";  relative path = roles/python_and_dependencies/tasks/main.yml; line#: 10 and 18 <br>
+        **(3)**      main file of the role "applications"; relative path =  roles/applications/tasks/main.yml; line#: 10, 19, 26, 35 and 40 <br>
+        **(4)**      main file of the role "database"; relative path =  roles/applications/tasks/main.yml; line#: 6, 13, 19, and 28 <br>
         
 Therefore we could change the group names in the inventory. But if we change, we need to define those names in the group_vars with the respective file as group names such as lb.yml and node.yml. It is recommended to copy the same files and modify the variables per your requirement.
 
