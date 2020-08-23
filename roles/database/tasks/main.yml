@@ -1,16 +1,56 @@
 ---
+- name: Download RPM for mySQL yum_repository Version 6
+  yum: 
+    name: https://dev.mysql.com/get/mysql80-community-release-el6-3.noarch.rpm
+    state: present
+  when: 
+    - ansible_facts['distribution_major_version'] == "6"
+    - group_names[0] == "node"
+
+- name: Download RPM for mySQL yum_repository for Version 7
+  yum: 
+    name: https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
+    state: present
+  when: 
+    - ansible_facts['distribution_major_version'] == "7"
+    - group_names[0] == "node"
+
+#- name: add mysql repo to the system
+#  yum_repository:
+#    name: mysql
+#    description: mysql repo - $releasever - $basearch
+#    file: mysql
+#    baseurl: http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+#    enabled: yes
+#    gpgcheck: no
+#    failovermethod: priority
+
 - name: Install MySql Database
   yum:
-    name: mysql
+    name: 
+      - mysql
+      - mysql-server
     state: present
   when: group_names[0] == "node"
 
-- name: start the database service
+- name: Start the database service for version 6 and backward
   service:
-    name: mysql_db
+    name: mysqld
     state: started
     enabled: yes
-  when: group_names[0] == "node"
+  when: 
+    - group_names[0] == "node"
+    - ansible_service_mgr != 'systemd'
+
+- name: Start the database service for version 7 onward
+  systemd: 
+    name: mariadb
+    state: started
+    daemon_reload: yes
+    enabled: yes
+  when: 
+    - group_names[0] == "node"
+    - ansible_service_mgr == 'systemd'
 
 - name: Create "{{ mysql_db_name }}" application database
   mysql_db: 

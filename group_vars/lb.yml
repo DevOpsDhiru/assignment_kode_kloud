@@ -1,6 +1,0 @@
-lb: lb
-# this is for making the variable name dynamic.
-# the variable name lb is fixed (first part) but the value "lb" is the name of the group that we call for load balancer in the inventory
-# for example:   (if we have hq and branch; then the value above should look like below):
-#
-# lb: hq

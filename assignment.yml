@@ -4,5 +4,6 @@
   roles:
     - python_and_dependencies
     - nginx
-    - applications
     - database
+    - applications
+...

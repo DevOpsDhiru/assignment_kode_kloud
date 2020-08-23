@@ -14,10 +14,11 @@
     name: nginx
     state: latest
 
-- name: defining first host in the group
+- name: defining hosts in the node group
   set_fact:
-    node1: "{{ groups[group_names[0]][0] }}"
-    node2: "{{ groups[group_names[0]][1] }}"
+    node1: "{{ groups['node'][0] }}"
+    node2: "{{ groups['node'][1] }}"
+  ignore_errors: yes
 
 - name: Copy the nginx config files for {{group_names[0]}} into /etc/nginx/nginx.conf
   template:

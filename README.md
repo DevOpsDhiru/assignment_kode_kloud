@@ -43,6 +43,7 @@ This repository contains the solution of the final assignment of kode_kloud of "
         **(1)**      inventory hostfile (normally hosts in the main playbook.) : [lb]  and [node] <br>
         **(2)**      main file of the role "python_and_dependencies";  relative path = roles/python_and_dependencies/tasks/main.yml; line#: 10 and 18 <br>
         **(3)**      main file of the role "applications"; relative path =  roles/applications/tasks/main.yml; line#: 10, 19, 26, 35 and 40 <br>
+        **(4)**      main file of the role "nginx"; relative path =  roles/nginx/tasks/main.yml; line#: 17, 19, and 20 <br>
         **(4)**      main file of the role "database"; relative path =  roles/applications/tasks/main.yml; line#: 6, 13, 19, and 28 <br>
 <br>        
 
@@ -62,3 +63,8 @@ Therefore we could change the group names in the inventory. But if we change, we
            #               copy and paste line#20 just below it and change it to node2, node4 etc... as per your requirement.  <br>
            #               We should keep in mind that we are defining the variables that we have used in step #1 of this "UPDATING PLAYBOOK" section. <br>
 
+# How to run?: 
+
+* Define Variables in node.yml file of "group_vars" directory
+* Define inventory hostname. Recommended to use "hosts" file in the same directory.
+* Run the ansible playbook "ansible-playbook" assignment.yml -K"    # Here if we wish to  give the inventory hostname we can use -i <inventoryFile>

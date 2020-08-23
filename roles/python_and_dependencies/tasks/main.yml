@@ -4,8 +4,8 @@
     name:
       - python
       - python-setuptools
-      - python-dev
-      - build-essential
+#      - python-dev
+#      - build-essential
       - python-pip
   when: group_names[0] == "node"
   

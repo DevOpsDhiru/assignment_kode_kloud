@@ -22,7 +22,9 @@
   git:
     repo: "{{git_repo}}"
     dest: "{{ deepest_directory }}"
-    update: yes
+    update: no
+    force: yes
+    version: master
   when: group_names[0] == "node"
 
 - name: copy file from backup
