@@ -2,8 +2,8 @@ events {}
 
 http {
     upstream test_server {
-        server {{node1}};
-        server {{node2}};
+        server {{node1}}:5000;
+        server {{node2}}:5000;
     } 
     server{
         listen 80;

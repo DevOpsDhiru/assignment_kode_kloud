@@ -68,3 +68,9 @@ Therefore we could change the group names in the inventory. But if we change, we
 * Define Variables in node.yml file of "group_vars" directory
 * Define inventory hostname. Recommended to use "hosts" file in the same directory.
 * Run the ansible playbook "ansible-playbook" assignment.yml -K"    # Here if we wish to  give the inventory hostname we can use -i <inventoryFile>
+*
+* and test the application by browsing http://<ip_of_lb>
+*
+
+# limitation: 
+* mysql database creation task is giving error on centos 7 - expecting to get this bug fixed asap by ansible.
