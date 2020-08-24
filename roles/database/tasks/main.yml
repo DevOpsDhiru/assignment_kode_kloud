@@ -15,16 +15,6 @@
     - ansible_facts['distribution_major_version'] == "7"
     - group_names[0] == "node"
 
-#- name: add mysql repo to the system
-#  yum_repository:
-#    name: mysql
-#    description: mysql repo - $releasever - $basearch
-#    file: mysql
-#    baseurl: http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
-#    enabled: yes
-#    gpgcheck: no
-#    failovermethod: priority
-
 - name: Install MySql Database
   yum:
     name: 
@@ -32,36 +22,57 @@
       - mysql-server
     state: present
   when: group_names[0] == "node"
+  notify:
+    - Start DB for 6
+    - Start DB for 7
 
-- name: Start the database service for version 6 and backward
-  service:
-    name: mysqld
-    state: started
-    enabled: yes
-  when: 
-    - group_names[0] == "node"
-    - ansible_service_mgr != 'systemd'
+#- name: get the temporary root password created for the first time
+#  shell: "cat /var/log/mysqld.log |grep @localhost | awk 'NF>1{print $NF}'"
+#  register: temp_root_pass
+#  when: group_names[0] == "node"
+#
+#- debug:
+#    msg: "{{ temp_root_pass.stdout }}"
+#  when: group_names[0] == "node"
+#
+#- name: set temporary as root password in a variable
+#  set_fact:
+#    mysql_root_password: "{{ temp_root_pass.stdout }}"
+#  when: group_names[0] == "node"
+- name: change the root mysql password
+  shell: echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{mysql_root_password}}';" | mysql -u root --connect-expired-password
+  when: group_names[0] == "node"
+  ignore_errors: yes
 
-- name: Start the database service for version 7 onward
-  systemd: 
-    name: mariadb
-    state: started
-    daemon_reload: yes
-    enabled: yes
-  when: 
-    - group_names[0] == "node"
-    - ansible_service_mgr == 'systemd'
+- name: Create .my.cnf
+  template:
+    src: "my.cnf.j2"
+    dest: "/root/.my.cnf"
+    owner: root
+    group: root
+    mode: 0600
+  when: group_names[0] == "node"
+  notify:
+    - Start DB for 6
+    - Start DB for 7
 
 - name: Create "{{ mysql_db_name }}" application database
   mysql_db: 
     name: "{{ mysql_db_name }}"
+    login_user: 'root'
+    login_password: "{{ mysql_root_password }}"
     state: present
+    encoding: 'utf8'
+    login_host: 'localhost'
+    login_unix_socket: /var/lib/mysqld/mysqld.sock
   when: group_names[0] == "node"
-  
+  become: yes
+
 - name: Create database user
   mysql_user:
     name: "{{ mysql_user }}"
     password: "{{ mysql_user_password }}"
+#    host: 'localhost'
     priv: '*.*: ALL'
     state: present
     host: '%'

@@ -1,7 +1,8 @@
 # variables used in databse roles
-mysql_db_name: 'employee_db' 
+mysql_db_name: 'employee_db'
 mysql_user: 'dhirendra'
 mysql_user_password: 'dhirendra'
+mysql_root_password: 'P@ssw0rd@1234'
 
 #variables for nginx config
 hosting_location: '/opt' 

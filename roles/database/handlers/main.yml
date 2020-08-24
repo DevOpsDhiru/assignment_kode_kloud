@@ -1,2 +1,19 @@
 ---
 # handlers file for database
+- name: Start DB for 6
+  service:
+    name: mysqld
+    state: started
+    enabled: yes
+  when: 
+    - group_names[0] == "node"
+    - ansible_service_mgr != 'systemd'
+
+- name: Start DB for 7
+  systemd:
+    name: mysqld
+    state: started
+    enabled: yes
+  when: 
+    - group_names[0] == "node"
+    - ansible_service_mgr == 'systemd'
